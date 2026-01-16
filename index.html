@@ -171,13 +171,13 @@
     }
     
     /* Grid */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-auto-rows: minmax(180px, auto);
-      gap: var(--gap);
-      perspective: 1200px;
-    }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 180px); /* Fixed 5 rows, all same height */
+  gap: var(--gap);
+  perspective: 1200px;
+}
     
     /* Cell Base */
     .cell {
