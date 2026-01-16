@@ -42,16 +42,15 @@
       --border: #1f1f1f;
       --border-subtle: #1a1a1a;
       --text: #ffffff;
-      --text-muted: #666666;
-      --text-dim: #444444;
+      --text-muted: #888888;
+      --text-dim: #555555;
       --live: #22c55e;
       --beta: #f59e0b;
-      --glow-primary: rgba(200, 210, 255, 0.6);
-      --glow-secondary: rgba(200, 210, 255, 0.2);
+      --glow-primary: rgba(200, 210, 255, 0.7);
+      --glow-secondary: rgba(200, 210, 255, 0.25);
       --gap: 6px;
-      --radius: 10px;
-      --pad: 16px;
-      --cell-height: 160px;
+      --radius: 12px;
+      --pad: 20px;
     }
     
     html {
@@ -100,15 +99,15 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 24px;
-      background: rgba(10, 10, 10, 0.8);
+      padding: 20px 32px;
+      background: rgba(10, 10, 10, 0.85);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
     }
     
     .logo {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 600;
       color: var(--text);
       text-decoration: none;
@@ -117,12 +116,12 @@
     
     nav {
       display: flex;
-      gap: 24px;
+      gap: 28px;
       align-items: center;
     }
     
     nav a {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--text-muted);
       text-decoration: none;
       transition: color 0.2s;
@@ -136,8 +135,8 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      padding: 6px 12px;
-      font-size: 12px;
+      padding: 8px 14px;
+      font-size: 13px;
       font-weight: 500;
       color: var(--text-muted);
       background: transparent;
@@ -156,8 +155,8 @@
       border-color: var(--text);
     }
     .toggle-btn svg {
-      width: 12px;
-      height: 12px;
+      width: 14px;
+      height: 14px;
       transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     .toggle-btn.active svg {
@@ -166,16 +165,15 @@
     
     /* Main */
     main {
-      padding: 24px;
-      max-width: 1200px;
+      padding: 32px;
+      max-width: 1400px;
       margin: 0 auto;
     }
     
-    /* Grid - Fixed rows, all same height */
+    /* Grid - 3 columns, square cards */
     .grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-auto-rows: var(--cell-height);
+      grid-template-columns: repeat(3, 1fr);
       gap: var(--gap);
       perspective: 1200px;
     }
@@ -186,6 +184,7 @@
       background: var(--card);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius);
+      aspect-ratio: 1;
       overflow: visible;
       transform-style: preserve-3d;
       will-change: transform;
@@ -195,7 +194,7 @@
     @keyframes cellIn {
       from {
         opacity: 0;
-        transform: translateY(16px) scale(0.98);
+        transform: translateY(20px) scale(0.97);
       }
       to {
         opacity: 1;
@@ -214,10 +213,10 @@
       inset: -1px;
       border-radius: inherit;
       background: radial-gradient(
-        180px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        200px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
         var(--glow-primary) 0%,
-        var(--glow-secondary) 20%,
-        transparent 40%
+        var(--glow-secondary) 25%,
+        transparent 50%
       );
       mask: 
         linear-gradient(#fff 0 0) content-box,
@@ -246,7 +245,7 @@
       border-radius: inherit;
       background: radial-gradient(
         ellipse 120% 80% at var(--specular-x, 50%) var(--specular-y, 50%),
-        rgba(255, 255, 255, 0.03) 0%,
+        rgba(255, 255, 255, 0.04) 0%,
         transparent 50%
       );
       opacity: 0;
@@ -259,10 +258,10 @@
       opacity: 1;
     }
     
-    /* Cell Spans */
+    /* Cell Spans - Intro spans 2 columns */
     .cell.intro {
       grid-column: span 2;
-      grid-row: span 1;
+      aspect-ratio: 2 / 1;
     }
     
     /* Icon - Top Left */
@@ -270,8 +269,8 @@
       position: absolute;
       top: var(--pad);
       left: var(--pad);
-      width: 18px;
-      height: 18px;
+      width: 22px;
+      height: 22px;
       color: var(--text-dim);
       opacity: 0.5;
       transition: all 0.3s ease;
@@ -282,7 +281,7 @@
     .cell.revealed .cell-icon {
       opacity: 0.9;
       color: var(--text-muted);
-      filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.2));
+      filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.25));
       transform: rotate(-3deg);
     }
     
@@ -294,10 +293,10 @@
       display: flex;
       align-items: center;
       gap: 0;
-      padding: 4px 6px;
+      padding: 5px 8px;
       background: rgba(255, 255, 255, 0.05);
       border-radius: 12px;
-      font-size: 9px;
+      font-size: 10px;
       font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -307,20 +306,20 @@
     
     .cell-status::before {
       content: '';
-      width: 6px;
-      height: 6px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
       flex-shrink: 0;
     }
     
     .cell-status.live::before {
       background: var(--live);
-      box-shadow: 0 0 6px 1px rgba(34, 197, 94, 0.4);
+      box-shadow: 0 0 8px 2px rgba(34, 197, 94, 0.4);
     }
     
     .cell-status.beta::before {
       background: var(--beta);
-      box-shadow: 0 0 6px 1px rgba(245, 158, 11, 0.4);
+      box-shadow: 0 0 8px 2px rgba(245, 158, 11, 0.4);
     }
     
     .cell-status span {
@@ -348,7 +347,7 @@
     }
     
     .cell-title {
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 600;
       color: var(--text);
       letter-spacing: -0.02em;
@@ -356,12 +355,12 @@
     }
     
     .cell-subtitle {
-      font-size: 11px;
+      font-size: 12px;
       color: var(--text-dim);
       line-height: 1.3;
-      margin-bottom: 2px;
+      margin-bottom: 4px;
       opacity: 0;
-      transform: translateY(4px);
+      transform: translateY(6px);
       transition: all 0.3s ease;
     }
     
@@ -377,11 +376,11 @@
       position: absolute;
       bottom: var(--pad);
       right: var(--pad);
-      width: 14px;
-      height: 14px;
+      width: 16px;
+      height: 16px;
       color: var(--text-dim);
       opacity: 0;
-      transform: translate(-6px, 6px);
+      transform: translate(-8px, 8px);
       transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
       z-index: 2;
     }
@@ -399,7 +398,7 @@
     }
     
     .cell.clickable:active {
-      transform: scale(0.99);
+      transform: scale(0.98);
     }
     
     /* Focus states */
@@ -427,14 +426,14 @@
     
     .cell.info .cell-content {
       position: absolute;
-      top: calc(var(--pad) + 28px);
+      top: calc(var(--pad) + 32px);
       left: var(--pad);
       right: var(--pad);
-      font-size: 11px;
+      font-size: 13px;
       color: var(--text-dim);
-      line-height: 1.4;
+      line-height: 1.5;
       opacity: 0;
-      transform: translateY(4px);
+      transform: translateY(6px);
       transition: all 0.3s ease;
     }
     
@@ -447,16 +446,16 @@
     
     .cell.info .info-list {
       position: absolute;
-      top: calc(var(--pad) + 28px);
+      top: calc(var(--pad) + 32px);
       left: var(--pad);
       right: var(--pad);
       display: flex;
       flex-direction: column;
-      gap: 2px;
-      font-size: 10px;
+      gap: 4px;
+      font-size: 12px;
       list-style: none;
       opacity: 0;
-      transform: translateY(4px);
+      transform: translateY(6px);
       transition: all 0.3s ease;
     }
     
@@ -484,14 +483,14 @@
     /* Skills Tags */
     .skill-tags {
       position: absolute;
-      top: calc(var(--pad) + 28px);
+      top: calc(var(--pad) + 32px);
       left: var(--pad);
       right: var(--pad);
       display: flex;
       flex-wrap: wrap;
-      gap: 4px;
+      gap: 6px;
       opacity: 0;
-      transform: translateY(4px);
+      transform: translateY(6px);
       transition: all 0.3s ease;
     }
     
@@ -502,11 +501,11 @@
     }
     
     .skill-tag {
-      padding: 2px 6px;
+      padding: 4px 8px;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--border);
-      border-radius: 4px;
-      font-size: 9px;
+      border-radius: 6px;
+      font-size: 11px;
       color: var(--text-muted);
       transition: all 0.2s ease;
     }
@@ -530,19 +529,19 @@
     .intro-status {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 5px 10px;
+      gap: 8px;
+      padding: 6px 12px;
       background: rgba(34, 197, 94, 0.1);
       border: 1px solid rgba(34, 197, 94, 0.2);
       border-radius: 20px;
-      font-size: 10px;
+      font-size: 11px;
       color: var(--live);
     }
     
     .intro-status::before {
       content: '';
-      width: 6px;
-      height: 6px;
+      width: 7px;
+      height: 7px;
       background: var(--live);
       border-radius: 50%;
       animation: pulse 2s ease-in-out infinite;
@@ -550,7 +549,7 @@
     
     @keyframes pulse {
       0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.6; transform: scale(1.1); }
+      50% { opacity: 0.6; transform: scale(1.15); }
     }
     
     .intro-content {
@@ -561,12 +560,12 @@
     }
     
     .intro-headline {
-      font-size: 18px;
+      font-size: clamp(20px, 3vw, 26px);
       font-weight: 600;
       color: var(--text);
       letter-spacing: -0.03em;
-      line-height: 1.25;
-      margin-bottom: 8px;
+      line-height: 1.2;
+      margin-bottom: 12px;
     }
     
     .intro-headline span {
@@ -576,8 +575,8 @@
     .intro-meta {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      font-size: 11px;
+      gap: 10px;
+      font-size: 13px;
       color: var(--text-muted);
     }
     
@@ -603,8 +602,8 @@
     }
     
     .cell.social svg {
-      width: 22px;
-      height: 22px;
+      width: 28px;
+      height: 28px;
       color: var(--text-muted);
       transition: all 0.3s ease;
     }
@@ -614,24 +613,29 @@
       transform: scale(1.1);
     }
     
+    /* Small cells for social - half height */
+    .cell.small {
+      aspect-ratio: 2 / 1;
+    }
+    
     /* Footer */
     footer {
-      padding: 24px;
+      padding: 32px;
       text-align: center;
       border-top: 1px solid var(--border);
-      margin-top: 24px;
+      margin-top: 32px;
     }
     
     .footer-monogram {
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 600;
       color: var(--text-dim);
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       letter-spacing: 0.1em;
     }
     
     .footer-text {
-      font-size: 11px;
+      font-size: 12px;
       color: var(--text-dim);
     }
     
@@ -641,7 +645,7 @@
     }
     
     .footer-text span[aria-hidden] {
-      margin: 0 8px;
+      margin: 0 10px;
     }
     
     /* Page transition */
@@ -665,43 +669,35 @@
     /* Responsive */
     @media (max-width: 1024px) {
       .grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-      .cell.intro {
-        grid-column: span 2;
-      }
-    }
-    
-    @media (max-width: 768px) {
-      :root {
-        --cell-height: 140px;
-      }
-      .grid {
         grid-template-columns: repeat(2, 1fr);
       }
       .cell.intro {
         grid-column: span 2;
       }
+      main {
+        padding: 24px;
+      }
+    }
+    
+    @media (max-width: 640px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      .cell.intro {
+        grid-column: span 1;
+        aspect-ratio: 1;
+      }
+      .cell.small {
+        aspect-ratio: 1;
+      }
       header {
-        padding: 12px 16px;
+        padding: 16px 20px;
       }
       main {
         padding: 16px;
       }
       nav {
         gap: 16px;
-      }
-      .intro-headline {
-        font-size: 16px;
-      }
-    }
-    
-    @media (max-width: 480px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
-      .cell.intro {
-        grid-column: span 1;
       }
     }
   </style>
@@ -727,7 +723,7 @@
   <main id="main-content">
     <div class="grid">
       
-      <!-- ROW 1: Intro (2 cols) + BoostXP + MVR Portal -->
+      <!-- ROW 1: Intro (2 cols) + BoostXP -->
       <div class="cell intro" style="animation-delay: 0s">
         <div class="intro-header">
           <div class="intro-status">Available for opportunities</div>
@@ -760,6 +756,7 @@
         </svg>
       </a>
       
+      <!-- ROW 2: MVR Portal + F3 Finance + Floral Frenchie -->
       <a href="projects/mvr-portal.html" class="cell clickable" style="animation-delay: 0.1s" aria-label="View MVR Portal project">
         <svg class="cell-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <rect x="3" y="3" width="18" height="18" rx="4"/>
@@ -775,7 +772,6 @@
         </svg>
       </a>
       
-      <!-- ROW 2: F3 Finance + Floral Frenchie + MVR Projects + About -->
       <a href="projects/f3-finance.html" class="cell clickable" style="animation-delay: 0.15s" aria-label="View F3 Finance project">
         <svg class="cell-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <rect x="3" y="3" width="18" height="18" rx="4"/>
@@ -806,6 +802,7 @@
         </svg>
       </a>
       
+      <!-- ROW 3: MVR Projects + About + Experience -->
       <a href="projects/mvr-projects.html" class="cell clickable" style="animation-delay: 0.25s" aria-label="View MVR Projects project">
         <svg class="cell-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="12" cy="12" r="10"/>
@@ -826,24 +823,24 @@
           <circle cx="12" cy="8" r="4"/>
           <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
         </svg>
-        <p class="cell-content">Developer with 10 years of operational insight across 3 countries.</p>
+        <p class="cell-content">Developer with 10 years of operational insight across 3 countries. I build tools that make businesses run better.</p>
         <h2 class="cell-title">About</h2>
       </div>
       
-      <!-- ROW 3: Experience + Stack + Tools + Resume -->
       <div class="cell info" style="animation-delay: 0.35s">
         <svg class="cell-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <rect x="2" y="7" width="20" height="14" rx="2"/>
           <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
         </svg>
         <ul class="info-list">
-          <li><span class="role">Holland Home</span><span class="date">2023</span></li>
+          <li><span class="role">Holland Home</span><span class="date">2023–24</span></li>
           <li><span class="role">Our Space UK</span><span class="date">2019–21</span></li>
           <li><span class="role">Fresenius</span><span class="date">2016–18</span></li>
         </ul>
         <h2 class="cell-title">Experience</h2>
       </div>
       
+      <!-- ROW 4: Stack + Tools + Resume -->
       <div class="cell info" style="animation-delay: 0.4s">
         <svg class="cell-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <polygon points="12 2 2 7 12 12 22 7 12 2"/>
@@ -890,22 +887,21 @@
         </svg>
       </a>
       
-      <!-- ROW 4: LinkedIn + GitHub + 2 empty placeholders -->
-      <a href="https://linkedin.com/in/ruisimoes" target="_blank" rel="noopener noreferrer" class="cell clickable social" style="animation-delay: 0.55s" aria-label="LinkedIn profile">
+      <!-- ROW 5: LinkedIn + GitHub + empty -->
+      <a href="https://linkedin.com/in/ruisimoes" target="_blank" rel="noopener noreferrer" class="cell clickable social small" style="animation-delay: 0.55s" aria-label="LinkedIn profile">
         <svg viewBox="0 0 24 24" fill="currentColor">
           <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
         </svg>
       </a>
       
-      <a href="https://github.com/ruisimoes" target="_blank" rel="noopener noreferrer" class="cell clickable social" style="animation-delay: 0.6s" aria-label="GitHub profile">
+      <a href="https://github.com/ruisimoes" target="_blank" rel="noopener noreferrer" class="cell clickable social small" style="animation-delay: 0.6s" aria-label="GitHub profile">
         <svg viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
         </svg>
       </a>
       
-      <!-- Empty placeholder cells to complete the row -->
-      <div class="cell" style="animation-delay: 0.65s; opacity: 0.3;"></div>
-      <div class="cell" style="animation-delay: 0.7s; opacity: 0.3;"></div>
+      <!-- Empty cell to complete row -->
+      <div class="cell small" style="animation-delay: 0.65s; opacity: 0.3; pointer-events: none;"></div>
       
     </div>
   </main>
@@ -942,7 +938,7 @@
       cells.forEach((cell, i) => {
         setTimeout(() => {
           cell.classList.toggle('revealed', isRevealed);
-        }, i * 30);
+        }, i * 40);
       });
     });
     
@@ -957,7 +953,7 @@
       const delay = parseFloat(cell.style.animationDelay) * 1000 || 0;
       setTimeout(() => {
         cell.classList.add('animation-done');
-      }, delay + 500);
+      }, delay + 600);
     });
     
     // Magnetic Tilt & UV Glow Effect
@@ -974,9 +970,10 @@
         let animationId = null;
         let isHovering = false;
         
-        const maxRotation = 2;
-        const minLift = 1;
-        const maxLift = 4;
+        // STRONGER VALUES for visible effect
+        const maxRotation = 4; // degrees
+        const minLift = 2;     // px
+        const maxLift = 8;     // px
         
         const animate = () => {
           if (!isHovering && 
@@ -985,20 +982,27 @@
               Math.abs(currentLift) < 0.01) {
             cell.style.transform = '';
             cell.style.boxShadow = '';
+            cell.style.borderRadius = '';
             animationId = null;
             return;
           }
           
-          currentRotateX = lerp(currentRotateX, targetRotateX, 0.12);
-          currentRotateY = lerp(currentRotateY, targetRotateY, 0.12);
-          currentLift = lerp(currentLift, targetLift, 0.12);
+          currentRotateX = lerp(currentRotateX, targetRotateX, 0.1);
+          currentRotateY = lerp(currentRotateY, targetRotateY, 0.1);
+          currentLift = lerp(currentLift, targetLift, 0.1);
           
-          const shadowX = -currentRotateY * 1.5;
-          const shadowY = currentRotateX * 1.5;
-          const shadowBlur = 10 + currentLift * 1.5;
-          const shadowOpacity = 0.04 + (currentLift * 0.008);
-          const scale = 1 + (currentLift * 0.0002);
-          const borderRadius = 10 + (currentLift * 0.5);
+          // Shadow moves opposite to tilt
+          const shadowX = -currentRotateY * 2;
+          const shadowY = currentRotateX * 2;
+          const shadowBlur = 12 + currentLift * 2;
+          const shadowSpread = currentLift * 0.5;
+          const shadowOpacity = 0.08 + (currentLift * 0.01);
+          
+          // Subtle scale
+          const scale = 1 + (currentLift * 0.003);
+          
+          // Dynamic border radius
+          const borderRadius = 12 + (currentLift * 1);
           
           cell.style.transform = `
             rotateX(${currentRotateX}deg) 
@@ -1007,7 +1011,10 @@
             scale(${scale})
           `;
           cell.style.borderRadius = `${borderRadius}px`;
-          cell.style.boxShadow = `${shadowX}px ${shadowY}px ${shadowBlur}px rgba(0, 0, 0, ${shadowOpacity})`;
+          cell.style.boxShadow = `
+            ${shadowX}px ${shadowY}px ${shadowBlur}px ${shadowSpread}px rgba(0, 0, 0, ${shadowOpacity}),
+            0 0 ${currentLift * 2}px rgba(200, 210, 255, ${currentLift * 0.01})
+          `;
           
           animationId = requestAnimationFrame(animate);
         };
@@ -1015,6 +1022,7 @@
         cell.addEventListener('mouseenter', () => {
           isHovering = true;
           cell.style.transition = 'none';
+          cell.style.zIndex = '10';
           if (!animationId) animationId = requestAnimationFrame(animate);
         });
         
@@ -1025,20 +1033,26 @@
           const centerX = rect.width / 2;
           const centerY = rect.height / 2;
           
+          // MAGNETIC PULL: cursor pulls that corner UP (toward viewer)
+          // Cursor at top → top lifts → negative rotateX
+          // Cursor at left → left lifts → positive rotateY
           targetRotateX = -1 * ((centerY - y) / centerY) * maxRotation;
           targetRotateY = -1 * ((x - centerX) / centerX) * maxRotation;
           
+          // Lift based on distance from center
           const distFromCenter = Math.sqrt(
             Math.pow((x - centerX) / centerX, 2) + 
             Math.pow((y - centerY) / centerY, 2)
           );
           targetLift = minLift + (1 - Math.min(distFromCenter, 1)) * (maxLift - minLift);
           
+          // UV Glow position
           const percentX = (x / rect.width) * 100;
           const percentY = (y / rect.height) * 100;
           cell.style.setProperty('--mouse-x', `${percentX}%`);
           cell.style.setProperty('--mouse-y', `${percentY}%`);
           
+          // Specular glare (moves opposite)
           const specularX = Math.max(0, Math.min(100, 100 - (percentX * 1.3 - 15)));
           const specularY = Math.max(0, Math.min(100, 100 - (percentY * 1.3 - 15)));
           cell.style.setProperty('--specular-x', `${specularX}%`);
@@ -1051,12 +1065,14 @@
           targetRotateY = 0;
           targetLift = 0;
           cell.style.transition = 'transform 0.5s ease-out, box-shadow 0.5s ease-out, border-radius 0.5s ease-out';
+          cell.style.zIndex = '';
         });
       });
     }
     
     // Page transitions
     document.querySelectorAll('a[href^="projects/"], a[href="resume.html"]').forEach(link => {
+      // Prefetch on hover
       link.addEventListener('mouseenter', () => {
         const prefetchLink = document.createElement('link');
         prefetchLink.rel = 'prefetch';
@@ -1064,6 +1080,7 @@
         document.head.appendChild(prefetchLink);
       }, { once: true });
       
+      // Smooth transition
       link.addEventListener('click', (e) => {
         e.preventDefault();
         document.body.classList.add('page-exit');
