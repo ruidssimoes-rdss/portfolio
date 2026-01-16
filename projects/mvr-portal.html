@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MVR Portal — Case Study | Rui Simoes</title>
+  <meta name="description" content="MVR Portal: An internal operations dashboard for quote and invoice management.">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23111'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui' font-weight='600' font-size='14' fill='%23fff'%3ERS%3C/text%3E%3C/svg%3E">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg: #0a0a0a; --card: #141414; --border: #1f1f1f; --text: #ffffff; --text-muted: #888888; --text-dim: #555555; --accent: #22c55e; --accent-bg: rgba(34, 197, 94, 0.1); }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    header { position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 20px 32px; background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .logo { font-size: 16px; font-weight: 600; color: var(--text); text-decoration: none; letter-spacing: -0.02em; }
+    .back-link { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .back-link:hover { color: var(--text); }
+    .back-link svg { width: 16px; height: 16px; }
+    .hero { padding: 80px 32px; max-width: 900px; margin: 0 auto; }
+    .hero-status { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; background: var(--accent-bg); border: 1px solid rgba(34, 197, 94, 0.2); border-radius: 20px; font-size: 11px; font-weight: 500; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 24px; }
+    .hero-status::before { content: ''; width: 7px; height: 7px; background: var(--accent); border-radius: 50%; }
+    .hero h1 { font-size: clamp(36px, 6vw, 56px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 16px; }
+    .hero-subtitle { font-size: 20px; color: var(--text-muted); margin-bottom: 32px; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 32px; }
+    .meta-item { display: flex; flex-direction: column; gap: 4px; }
+    .meta-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; }
+    .meta-value { font-size: 14px; color: var(--text); font-weight: 500; }
+    .content { max-width: 900px; margin: 0 auto; padding: 0 32px 80px; }
+    .image-placeholder { width: 100%; aspect-ratio: 16 / 10; background: var(--card); border: 1px solid var(--border); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 64px; }
+    .image-placeholder span { font-size: 14px; color: var(--text-dim); }
+    section { margin-bottom: 64px; }
+    section h2 { font-size: 13px; font-weight: 600; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+    section p { font-size: 16px; color: var(--text-muted); line-height: 1.7; margin-bottom: 16px; }
+    section p:last-child { margin-bottom: 0; }
+    .tech-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
+    .tech-item { padding: 16px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; text-align: center; transition: border-color 0.2s; }
+    .tech-item:hover { border-color: var(--text-dim); }
+    .tech-item span { font-size: 13px; color: var(--text); font-weight: 500; }
+    .features-list { list-style: none; display: grid; gap: 12px; }
+    .features-list li { display: flex; align-items: flex-start; gap: 12px; padding: 16px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; }
+    .features-list li svg { width: 20px; height: 20px; color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+    .features-list li span { font-size: 14px; color: var(--text-muted); }
+    .cta-section { text-align: center; padding: 64px 32px; background: var(--card); border-top: 1px solid var(--border); }
+    .cta-section h3 { font-size: 24px; font-weight: 600; margin-bottom: 12px; }
+    .cta-section p { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
+    .cta-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; font-size: 14px; font-weight: 500; text-decoration: none; border-radius: 8px; transition: all 0.2s; }
+    .btn-primary { background: var(--text); color: var(--bg); }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+    .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .btn-secondary:hover { border-color: var(--text-dim); }
+    .btn svg { width: 16px; height: 16px; }
+    footer { padding: 32px; text-align: center; border-top: 1px solid var(--border); }
+    .footer-text { font-size: 12px; color: var(--text-dim); }
+    .footer-text a { color: var(--text-muted); text-decoration: none; }
+    @media (max-width: 640px) { header { padding: 16px 20px; } .hero { padding: 48px 20px; } .hero h1 { font-size: 32px; } .content { padding: 0 20px 48px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/" class="logo">Rui Simoes</a>
+    <a href="/" class="back-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Back to portfolio
+    </a>
+  </header>
+  
+  <main>
+    <div class="hero">
+      <div class="hero-status">Live & Operational</div>
+      <h1>MVR Portal</h1>
+      <p class="hero-subtitle">An internal operations dashboard for quote management, invoicing, and job tracking.</p>
+      
+      <div class="hero-meta">
+        <div class="meta-item">
+          <span class="meta-label">Role</span>
+          <span class="meta-value">Design & Development</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Timeline</span>
+          <span class="meta-value">2024</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Type</span>
+          <span class="meta-value">Web Application</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Client</span>
+          <span class="meta-value">MVR Projects</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="content">
+      <div class="image-placeholder">
+        <span>Screenshot coming soon</span>
+      </div>
+      
+      <section>
+        <h2>Overview</h2>
+        <p>MVR Portal is a custom-built internal tool for a security and construction company. It replaces a chaotic mix of spreadsheets and paper with a unified system for managing quotes, invoices, clients, and job tracking.</p>
+        <p>The portal is now used daily by the business, handling all their operational workflow from initial quote to final invoice.</p>
+      </section>
+      
+      <section>
+        <h2>The Problem</h2>
+        <p>The business was drowning in paperwork. Quotes were created in Word, prices tracked in Excel, invoices generated manually. Finding information meant digging through folders. Nothing talked to anything else.</p>
+        <p>They needed a single source of truth — something simple enough to use without training, but powerful enough to handle their entire workflow.</p>
+      </section>
+      
+      <section>
+        <h2>The Solution</h2>
+        <p>I built a custom web application that handles the complete business cycle. Create a quote, convert it to a job, track progress, generate an invoice — all in one place. Prices update automatically. Client history is always available. Nothing gets lost.</p>
+        <p>The interface was designed for people who aren't tech-savvy. Big buttons, clear labels, no hidden menus. If you can use a smartphone, you can use this portal.</p>
+      </section>
+      
+      <section>
+        <h2>Key Features</h2>
+        <ul class="features-list">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span><strong>Quote Builder</strong> — Create professional quotes with automatic price calculation from a managed price list.</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span><strong>Invoice Generation</strong> — One-click conversion from completed jobs to professional PDF invoices.</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span><strong>Client Management</strong> — Complete history of every client interaction, quote, and job in one place.</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span><strong>Price Management</strong> — Centralized price list that automatically updates all quotes and templates.</span>
+          </li>
+        </ul>
+      </section>
+      
+      <section>
+        <h2>Tech Stack</h2>
+        <div class="tech-grid">
+          <div class="tech-item"><span>Next.js</span></div>
+          <div class="tech-item"><span>React</span></div>
+          <div class="tech-item"><span>TypeScript</span></div>
+          <div class="tech-item"><span>Supabase</span></div>
+          <div class="tech-item"><span>Tailwind CSS</span></div>
+          <div class="tech-item"><span>Vercel</span></div>
+        </div>
+      </section>
+      
+      <section>
+        <h2>Results</h2>
+        <p>The portal has been in daily use since launch. Quote creation time dropped from 30+ minutes to under 5. Invoicing errors have essentially disappeared. The client can now track every aspect of their business from a single dashboard.</p>
+        <p>Most importantly, they actually use it — the ultimate measure of success for any internal tool.</p>
+      </section>
+    </div>
+    
+    <div class="cta-section">
+      <h3>Want something similar?</h3>
+      <p>I build custom internal tools for small businesses. Let's talk about your workflow.</p>
+      <div class="cta-buttons">
+        <a href="mailto:ruidssimoes@gmail.com" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Get in touch
+        </a>
+        <a href="/" class="btn btn-secondary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Back to portfolio
+        </a>
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <p class="footer-text">© 2025 Rui Simoes <span style="margin: 0 10px; color: var(--text-dim);">·</span> <a href="mailto:ruidssimoes@gmail.com">ruidssimoes@gmail.com</a></p>
+  </footer>
+</body>
+</html>
