@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Language" content="en">
+  <title>Rui Simoes — Developer & Operations Specialist</title>
+  <meta name="description" content="Developer with 10 years of operational insight. I build tools that make operations effortless.">
+  <meta name="author" content="Rui Simoes">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Rui Simoes — Developer & Operations Specialist">
+  <meta property="og:description" content="10 years solving ops problems. Now I code the solutions.">
+  <meta property="og:url" content="https://ruisimoes.com">
+  <meta property="og:image" content="https://ruisimoes.com/og-image.png">
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Rui Simoes — Developer & Operations Specialist">
+  <meta name="twitter:description" content="10 years solving ops problems. Now I code the solutions.">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23111'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui' font-weight='600' font-size='14' fill='%23fff'%3ERS%3C/text%3E%3C/svg%3E">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    :root {
+      --bg: #0a0a0a;
+      --card: #141414;
+      --border: #1f1f1f;
+      --border-subtle: #1a1a1a;
+      --text: #ffffff;
+      --text-muted: #666666;
+      --text-dim: #444444;
+      --live: #22c55e;
+      --beta: #f59e0b;
+      --glow-primary: rgba(200, 210, 255, 0.6);
+      --glow-secondary: rgba(200, 210, 255, 0.2);
+      --gap: 6px;
+      --radius: 10px;
+      --pad: 16px;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+      animation: pageIn 0.6s ease-out;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+    
+    @keyframes pageIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    /* Skip Link */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 16px;
+      padding: 8px 16px;
+      background: var(--text);
+      color: var(--bg);
+      text-decoration: none;
+      border-radius: 4px;
+      z-index: 1000;
+      font-size: 14px;
+    }
+    .skip-link:focus {
+      top: 16px;
+    }
+    
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      background: rgba(10, 10, 10, 0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .logo {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    
+    nav {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+    
+    nav a {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    nav a:hover {
+      color: var(--text);
+    }
+    
+    /* Toggle Button */
+    .toggle-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .toggle-btn:hover {
+      color: var(--text);
+      border-color: var(--text-dim);
+    }
+    .toggle-btn.active {
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
+    }
+    .toggle-btn svg {
+      width: 12px;
+      height: 12px;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .toggle-btn.active svg {
+      transform: rotate(180deg);
+    }
+    
+    /* Main */
+    main {
+      padding: 24px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    /* Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: minmax(180px, auto);
+      gap: var(--gap);
+      perspective: 1200px;
+    }
+    
+    /* Cell Base */
+    .cell {
+      position: relative;
+      background: var(--card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius);
+      overflow: visible;
+      transform-style: preserve-3d;
+      will-change: transform;
+      animation: cellIn 0.5s ease-out both;
+    }
+    
+    @keyframes cellIn {
+      from {
+        opacity: 0;
+        transform: translateY(16px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+    
+    .cell.animation-done {
+      animation: none;
+    }
+    
+    /* UV Torch Glow Effect */
+    .cell::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      background: radial-gradient(
+        180px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        var(--glow-primary) 0%,
+        var(--glow-secondary) 20%,
+        transparent 40%
+      );
+      mask: 
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      padding: 1px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 1;
+    }
+    
+    .cell:hover::before {
+      opacity: 1;
+    }
+    
+    /* Specular Glare */
+    .cell::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(
+        ellipse 120% 80% at var(--specular-x, 50%) var(--specular-y, 50%),
+        rgba(255, 255, 255, 0.03) 0%,
+        transparent 50%
+      );
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 1;
+    }
+    
+    .cell:hover::after {
+      opacity: 1;
+    }
+    
+    /* Cell Spans */
+    .cell.intro {
+      grid-column: span 2;
+      grid-row: span 1;
+    }
+    
+    /* CONTENT STRUCTURE: Absolute Coordinate Anchoring */
+    
+    /* Icon - Top Left */
+    .cell-icon {
+      position: absolute;
+      top: var(--pad);
+      left: var(--pad);
+      width: 20px;
+      height: 20px;
+      color: var(--text-dim);
+      opacity: 0.5;
+      transition: all 0.3s ease;
+      z-index: 2;
+    }
+    
+    .cell:hover .cell-icon,
+    .cell.revealed .cell-icon {
+      opacity: 0.9;
+      color: var(--text-muted);
+      filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.2));
+      transform: rotate(-3deg);
+    }
+    
+    /* Status - Top Right */
+    .cell-status {
+      position: absolute;
+      top: var(--pad);
+      right: var(--pad);
+      display: flex;
+      align-items: center;
+      gap: 0;
+      padding: 4px 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      overflow: hidden;
+      z-index: 2;
+    }
+    
+    .cell-status::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    
+    .cell-status.live::before {
+      background: var(--live);
+      box-shadow: 0 0 6px 1px rgba(34, 197, 94, 0.4);
+    }
+    
+    .cell-status.beta::before {
+      background: var(--beta);
+      box-shadow: 0 0 6px 1px rgba(245, 158, 11, 0.4);
+    }
+    
+    .cell-status span {
+      max-width: 0;
+      opacity: 0;
+      color: var(--text-muted);
+      white-space: nowrap;
+      transition: all 0.3s ease;
+    }
+    
+    .cell:hover .cell-status span,
+    .cell.revealed .cell-status span {
+      max-width: 60px;
+      opacity: 1;
+      margin-left: 6px;
+    }
+    
+    /* Text Wrapper - Bottom Left */
+    .cell-text-wrapper {
+      position: absolute;
+      bottom: var(--pad);
+      left: var(--pad);
+      right: var(--pad);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      z-index: 2;
+    }
+    
+    .cell-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+    
+    .cell-subtitle {
+      font-size: 12px;
+      color: var(--text-dim);
+      line-height: 1.3;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: all 0.3s ease;
+    }
+    
+    .cell:hover .cell-subtitle,
+    .cell.revealed .cell-subtitle {
+      opacity: 1;
+      transform: translateY(0);
+      color: var(--text-muted);
+    }
+    
+    /* Arrow - Bottom Right */
+    .cell-arrow {
+      position: absolute;
+      bottom: var(--pad);
+      right: var(--pad);
+      width: 16px;
+      height: 16px;
+      color: var(--text-dim);
+      opacity: 0;
+      transform: translate(-6px, 6px);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 2;
+    }
+    
+    .cell:hover .cell-arrow,
+    .cell.revealed .cell-arrow {
+      opacity: 1;
+      transform: translate(0, 0);
+      color: var(--text);
+    }
+    
+    /* Clickable cells */
+    .cell.clickable {
+      cursor: pointer;
+    }
+    
+    .cell.clickable:active {
+      transform: scale(0.99);
+    }
+    
+    /* Focus states */
+    .cell:focus-visible {
+      outline: 2px solid var(--text);
+      outline-offset: 2px;
+    }
+    
+    /* INFO CELLS - Different layout */
+    .cell.info {
+      display: flex;
+      flex-direction: column;
+      padding: var(--pad);
+    }
+    
+    .cell.info .cell-icon {
+      position: relative;
+      top: auto;
+      left: auto;
+      margin-bottom: 12px;
+    }
+    
+    .cell.info .cell-text-wrapper {
+      position: relative;
+      bottom: auto;
+      left: auto;
+      right: auto;
+      flex: 1;
+    }
+    
+    .cell.info .cell-title {
+      margin-bottom: 8px;
+    }
+    
+    .cell.info .cell-content {
+      font-size: 12px;
+      color: var(--text-dim);
+      line-height: 1.5;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: all 0.3s ease;
+    }
+    
+    .cell.info:hover .cell-content,
+    .cell.info.revealed .cell-content {
+      opacity: 1;
+      transform: translateY(0);
+      color: var(--text-muted);
+    }
+    
+    .cell.info .info-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 11px;
+      color: var(--text-dim);
+      opacity: 0;
+      transform: translateY(4px);
+      transition: all 0.3s ease;
+    }
+    
+    .cell.info:hover .info-list,
+    .cell.info.revealed .info-list {
+      opacity: 1;
+      transform: translateY(0);
+      color: var(--text-muted);
+    }
+    
+    .cell.info .info-list li {
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .cell.info .info-list .role {
+      color: var(--text);
+      font-weight: 500;
+    }
+    
+    .cell.info .info-list .date {
+      color: var(--text-dim);
+    }
+    
+    /* Skills Tags */
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: all 0.3s ease;
+    }
+    
+    .cell.info:hover .skill-tags,
+    .cell.info.revealed .skill-tags {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .skill-tag {
+      padding: 3px 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 10px;
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+    }
+    
+    .skill-tag:hover {
+      border-color: var(--text-dim);
+      transform: translateY(-1px);
+    }
+    
+    /* INTRO CELL - Special styling */
+    .cell.intro {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: var(--pad);
+    }
+    
+    .intro-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    
+    .intro-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      border-radius: 20px;
+      font-size: 11px;
+      color: var(--live);
+    }
+    
+    .intro-status::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--live);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.1); }
+    }
+    
+    .intro-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    
+    .intro-headline {
+      font-size: clamp(18px, 2.5vw, 22px);
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.03em;
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+    
+    .intro-headline span {
+      color: var(--text-muted);
+    }
+    
+    .intro-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    
+    .intro-meta a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    
+    .intro-meta a:hover {
+      color: var(--text);
+    }
+    
+    .intro-meta span[aria-hidden] {
+      color: var(--text-dim);
+    }
+    
+    /* SOCIAL CELLS */
+    .cell.social {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .cell.social svg {
+      width: 24px;
+      height: 24px;
+      color: var(--text-muted);
+      transition: all 0.3s ease;
+    }
+    
+    .cell.social:hover svg {
+      color: var(--text);
+      transform: scale(1.1);
+    }
+    
+    /* RESUME CELL */
+    .cell.resume {
+      display: flex;
+      flex-direction: column;
+      padding: var(--pad);
+    }
+    
+    /* Footer */
+    footer {
+      padding: 24px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      margin-top: 24px;
+    }
+    
+    .footer-monogram {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+      letter-spacing: 0.1em;
+    }
+    
+    .footer-text {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+    
+    .footer-text a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+    
+    .footer-text span[aria-hidden] {
+      margin: 0 8px;
+    }
+    
+    /* Page transition */
+    body.page-exit {
+      animation: pageOut 0.3s ease-in forwards;
+    }
+    
+    @keyframes pageOut {
+      to { opacity: 0; transform: translateY(-10px); }
+    }
+    
+    /* Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+    
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .cell.intro {
+        grid-column: span 2;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .cell.intro {
+        grid-column: span 2;
+      }
+      header {
+        padding: 12px 16px;
+      }
+      main {
+        padding: 16px;
+      }
+      nav {
+        gap: 16px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      .cell.intro {
+        grid-column: span 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  
+  <header>
+    <a href="/" class="logo">Rui Simoes</a>
+    <nav>
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="/cdn-cgi/l/email-protection#a3d1d6cac7d0d0caceccc6d0e3c4cec2cacf8dc0ccce">Contact</a>
+      <button class="toggle-btn" id="revealToggle" aria-label="Toggle reveal all content">
+        <span>Reveal</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
+    </nav>
+  </header>
+  
+  <main id="main-content">
+    <div class="grid">
+      
+      <!-- INTRO -->
+      <div class="cell intro" style="animation-delay: 0s">
+        <div class="intro-header">
+          <div class="intro-status">Available for opportunities</div>
+        </div>
+        <div class="intro-content">
+          <h1 class="intro-headline">
+            10 years solving ops problems.<br>
+            <span>Now I code the solutions.</span>
+          </h1>
+          <div class="intro-meta">
+            <span>Amsterdam</span>
+            <span aria-hidden="true">·</span>
+            <a href="/cdn-cgi/l/email-protection#f785829e9384849e9a989284b7909a969e9bd994989a"><span class="__cf_email__" data-cfemail="c9bbbca0adbabaa0a4a6acba89aea4a8a0a5e7aaa6a4">[email&#160;protected]</span></a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- BOOSTXP -->
+      <a href="projects/boostxp.html" class="cell clickable" id="work" style="animation-delay: 0.05s" aria-label="View BoostXP project">
+        <svg class="cell-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="18" height="18" rx="4"/>
+          <path d="M9 12l2 2 4-4"/>
+        </svg>
+        <div class="cell-status beta">
+          <span>Beta</span>
+        </div>
+        <div class="cell-text-wrapper">
+          <p class="cell-subtitle">Gamified fitness tracking</p>
+          <h2 class="cell-title">BoostXP</h2>
+        </div>
+        <svg class="cell-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M7 17L17 7M17 7H7M17 7V17"/>
+        </svg>
+      </a>
+      
+      <!-- MVR PORTAL -->
+      <a href="projects/mvr-portal.html" class="cell clickable" style="animation-delay: 0.1s" aria-label="View MVR Portal project">
+        <svg class="cell-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="18" height="18" rx="4"/>
+          <path d="M9 12l2 2 4-4"/>
+        </svg>
+        <div class="cell-status live">
+          <span>Live</span>
+        </div>
+        <div class="cell-text-wrapper">
+          <p class="cell-subtitle">Internal ops dashboard</p>
+          <h2 class="cell-title">MVR Portal</h2>
+        </div>
+        <svg class="cell-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M7 17L17 7M17 7H7M17 7V17"/>
+        </svg>
+      </a>
+      
+      <!-- F3 FINANCE -->
+      <a href="projects/f3-finance.html" class="cell clickable" style="animation-delay: 0.15s" aria-label="View F3 Finance project">
+        <svg class="cell-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="18" height="18" rx="4"/>
+          <path d="M9 12l2 2 4-4"/>
+        </svg>
+        <div class="cell-status live">
+          <span>Live</span>
+        </div>
+        <div class="cell-text-wrapper">
+          <p class="cell-subtitle">Real-time financial reporting</p>
+          <h2 class="cell-title">F3 Finance</h2>
+        </div>
+        <svg class="cell-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M7 17L17 7M17 7H7M17 7V17"/>
+        </svg>
+      </a>
+      
+      <!-- FLORAL FRENCHIE -->
+      <a href="projects/floral-frenchie.html" class="cell clickable" style="animation-delay: 0.2s" aria-label="View The Floral Frenchie project">
+        <svg class="cell-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M2 12h20"/>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+        <div class="cell-status live">
+          <span>Live</span>
+        </div>
+        <div class="cell-text-wrapper">
+          <p class="cell-subtitle">Boutique florist e-commerce</p>
+          <h2 class="cell-title">The Floral Frenchie</h2>
+        </div>
+        <svg class="cell-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M7 17L17 7M17 7H7M17 7V17"/>
+        </svg>
+      </a>
+      
+      <!-- MVR PROJECTS -->
+      <a href="projects/mvr-projects.html" class="cell clickable" style="animation-delay: 0.25s" aria-label="View MVR Projects project">
+        <svg class="cell-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M2 12h20"/>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+        <div class="cell-status live">
+          <span>Live</span>
+        </div>
+        <div class="cell-text-wrapper">
+          <p class="cell-subtitle">Construction firm website</p>
+          <h2 class="cell-title">MVR Projects</h2>
+        </div>
+        <svg class="cell-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M7 17L17 7M17 7H7M17 7V17"/>
+        </svg>
+      </a>
+      
+      <!-- ABOUT -->
+      <div class="cell info" id="about" style="animation-delay: 0.3s">
+        <svg class="cell-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="8" r="4"/>
+          <path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>
+        </svg>
+        <div class="cell-text-wrapper">
+          <h2 class="cell-title">About</h2>
+          <p class="cell-content">
+            Developer with 10 years of operational insight across 3 countries. I build tools that solve real business problems because I've lived them.
+          </p>
+        </div>
+      </div>
+      
+      <!-- EXPERIENCE -->
+      <div class="cell info" style="animation-delay: 0.35s">
+        <svg class="cell-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="7" width="20" height="14" rx="2"/>
+          <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+        </svg>
+        <div class="cell-text-wrapper">
+          <h2 class="cell-title">Experience</h2>
+          <ul class="info-list">
+            <li>
+              <span class="role">Holland Home</span>
+              <span class="date">2023</span>
+            </li>
+            <li>
+              <span class="role">Our Space UK</span>
+              <span class="date">2019–21</span>
+            </li>
+            <li>
+              <span class="role">Fresenius</span>
+              <span class="date">2016–18</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- STACK -->
+      <div class="cell info" style="animation-delay: 0.4s">
+        <svg class="cell-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+          <polyline points="2 17 12 22 22 17"/>
+          <polyline points="2 12 12 17 22 12"/>
+        </svg>
+        <div class="cell-text-wrapper">
+          <h2 class="cell-title">Stack</h2>
+          <div class="skill-tags">
+            <span class="skill-tag">React</span>
+            <span class="skill-tag">Next.js</span>
+            <span class="skill-tag">TypeScript</span>
+            <span class="skill-tag">Node</span>
+            <span class="skill-tag">Tailwind</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- TOOLS -->
+      <div class="cell info" style="animation-delay: 0.45s">
+        <svg class="cell-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+        </svg>
+        <div class="cell-text-wrapper">
+          <h2 class="cell-title">Tools</h2>
+          <div class="skill-tags">
+            <span class="skill-tag">Figma</span>
+            <span class="skill-tag">Framer</span>
+            <span class="skill-tag">VS Code</span>
+            <span class="skill-tag">GitHub</span>
+            <span class="skill-tag">Notion</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- RESUME -->
+      <a href="resume.html" class="cell clickable resume" style="animation-delay: 0.5s" aria-label="View full resume">
+        <svg class="cell-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+          <polyline points="10 9 9 9 8 9"/>
+        </svg>
+        <div class="cell-text-wrapper">
+          <p class="cell-subtitle">Full CV with print support</p>
+          <h2 class="cell-title">Resume</h2>
+        </div>
+        <svg class="cell-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M7 17L17 7M17 7H7M17 7V17"/>
+        </svg>
+      </a>
+      
+      <!-- LINKEDIN -->
+      <a href="https://linkedin.com/in/ruisimoes" target="_blank" rel="noopener noreferrer" class="cell clickable social" style="animation-delay: 0.55s" aria-label="LinkedIn profile">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+      </a>
+      
+      <!-- GITHUB -->
+      <a href="https://github.com/ruisimoes" target="_blank" rel="noopener noreferrer" class="cell clickable social" style="animation-delay: 0.6s" aria-label="GitHub profile">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+      
+    </div>
+  </main>
+  
+  <footer>
+    <div class="footer-monogram">RS</div>
+    <p class="footer-text">
+      © 2025 Rui Simoes
+      <span aria-hidden="true">·</span>
+      Built with intention
+      <span aria-hidden="true">·</span>
+      <a href="/cdn-cgi/l/email-protection#0b797e626f78786266646e784b6c666a626725686466"><span class="__cf_email__" data-cfemail="e99b9c808d9a9a8084868c9aa98e84888085c78a8684">[email&#160;protected]</span></a>
+    </p>
+  </footer>
+  
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // Console Easter Egg
+    const hour = new Date().getHours();
+    const greeting = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
+    console.log(`👋 ${greeting}, curious dev! Nice to see you poking around.`);
+    
+    // Detect touch device
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    
+    // Reveal All Toggle
+    const toggle = document.getElementById('revealToggle');
+    const cells = document.querySelectorAll('.cell');
+    let isRevealed = false;
+    
+    toggle.addEventListener('click', () => {
+      isRevealed = !isRevealed;
+      toggle.classList.toggle('active', isRevealed);
+      
+      cells.forEach((cell, i) => {
+        setTimeout(() => {
+          cell.classList.toggle('revealed', isRevealed);
+        }, i * 30);
+      });
+    });
+    
+    // Auto-reveal on touch devices
+    if (isTouchDevice) {
+      cells.forEach(cell => cell.classList.add('revealed'));
+      toggle.style.display = 'none';
+    }
+    
+    // Animation complete class
+    cells.forEach((cell, index) => {
+      const delay = parseFloat(cell.style.animationDelay) * 1000 || 0;
+      setTimeout(() => {
+        cell.classList.add('animation-done');
+      }, delay + 500);
+    });
+    
+    // Magnetic Tilt & UV Glow Effect
+    if (!isTouchDevice) {
+      // Lerp utility
+      const lerp = (start, end, factor) => start + (end - start) * factor;
+      
+      cells.forEach(cell => {
+        let currentRotateX = 0;
+        let currentRotateY = 0;
+        let currentLift = 0;
+        let targetRotateX = 0;
+        let targetRotateY = 0;
+        let targetLift = 0;
+        let animationId = null;
+        let isHovering = false;
+        
+        const maxRotation = 2;
+        const minLift = 1;
+        const maxLift = 4;
+        
+        const animate = () => {
+          if (!isHovering && 
+              Math.abs(currentRotateX) < 0.01 && 
+              Math.abs(currentRotateY) < 0.01 && 
+              Math.abs(currentLift) < 0.01) {
+            cell.style.transform = '';
+            cell.style.boxShadow = '';
+            animationId = null;
+            return;
+          }
+          
+          currentRotateX = lerp(currentRotateX, targetRotateX, 0.12);
+          currentRotateY = lerp(currentRotateY, targetRotateY, 0.12);
+          currentLift = lerp(currentLift, targetLift, 0.12);
+          
+          const shadowX = -currentRotateY * 1.5;
+          const shadowY = currentRotateX * 1.5;
+          const shadowBlur = 10 + currentLift * 1.5;
+          const shadowOpacity = 0.04 + (currentLift * 0.008);
+          const scale = 1 + (currentLift * 0.0002);
+          const borderRadius = 10 + (currentLift * 0.5);
+          
+          cell.style.transform = `
+            rotateX(${currentRotateX}deg) 
+            rotateY(${currentRotateY}deg) 
+            translateZ(${currentLift}px) 
+            scale(${scale})
+          `;
+          cell.style.borderRadius = `${borderRadius}px`;
+          cell.style.boxShadow = `
+            ${shadowX}px ${shadowY}px ${shadowBlur}px rgba(0, 0, 0, ${shadowOpacity})
+          `;
+          
+          animationId = requestAnimationFrame(animate);
+        };
+        
+        cell.addEventListener('mouseenter', () => {
+          isHovering = true;
+          cell.style.transition = 'none';
+          if (!animationId) animationId = requestAnimationFrame(animate);
+        });
+        
+        cell.addEventListener('mousemove', (e) => {
+          const rect = cell.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          
+          // Magnetic pull - inverted so cursor pulls the corner UP
+          targetRotateX = -1 * ((centerY - y) / centerY) * maxRotation;
+          targetRotateY = -1 * ((x - centerX) / centerX) * maxRotation;
+          
+          // Lift based on distance from center
+          const distFromCenter = Math.sqrt(
+            Math.pow((x - centerX) / centerX, 2) + 
+            Math.pow((y - centerY) / centerY, 2)
+          );
+          targetLift = minLift + (1 - Math.min(distFromCenter, 1)) * (maxLift - minLift);
+          
+          // UV torch coordinates
+          const percentX = (x / rect.width) * 100;
+          const percentY = (y / rect.height) * 100;
+          cell.style.setProperty('--mouse-x', `${percentX}%`);
+          cell.style.setProperty('--mouse-y', `${percentY}%`);
+          
+          // Specular glare (opposite direction)
+          const specularX = Math.max(0, Math.min(100, 100 - (percentX * 1.3 - 15)));
+          const specularY = Math.max(0, Math.min(100, 100 - (percentY * 1.3 - 15)));
+          cell.style.setProperty('--specular-x', `${specularX}%`);
+          cell.style.setProperty('--specular-y', `${specularY}%`);
+        });
+        
+        cell.addEventListener('mouseleave', () => {
+          isHovering = false;
+          targetRotateX = 0;
+          targetRotateY = 0;
+          targetLift = 0;
+          cell.style.transition = 'transform 0.5s ease-out, box-shadow 0.5s ease-out, border-radius 0.5s ease-out';
+        });
+      });
+    }
+    
+    // Page transitions with prefetch
+    document.querySelectorAll('a[href^="projects/"], a[href="resume.html"]').forEach(link => {
+      // Prefetch on hover
+      link.addEventListener('mouseenter', () => {
+        const prefetchLink = document.createElement('link');
+        prefetchLink.rel = 'prefetch';
+        prefetchLink.href = link.href;
+        document.head.appendChild(prefetchLink);
+      }, { once: true });
+      
+      // Smooth transition
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.body.classList.add('page-exit');
+        setTimeout(() => {
+          window.location.href = link.href;
+        }, 300);
+      });
+    });
+    
+    // Gyroscope for mobile (if available)
+    if (isTouchDevice && window.DeviceOrientationEvent) {
+      let gyroPermissionGranted = false;
+      
+      const enableGyroscope = () => {
+        if (gyroPermissionGranted) return;
+        
+        if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+          DeviceOrientationEvent.requestPermission()
+            .then(permission => {
+              if (permission === 'granted') {
+                gyroPermissionGranted = true;
+                addGyroListener();
+              }
+            })
+            .catch(console.error);
+        } else {
+          gyroPermissionGranted = true;
+          addGyroListener();
+        }
+      };
+      
+      const addGyroListener = () => {
+        let currentBeta = 0;
+        let currentGamma = 0;
+        
+        window.addEventListener('deviceorientation', (e) => {
+          const targetBeta = Math.max(-20, Math.min(20, e.beta || 0));
+          const targetGamma = Math.max(-20, Math.min(20, e.gamma || 0));
+          
+          currentBeta = lerp(currentBeta, targetBeta, 0.1);
+          currentGamma = lerp(curre
