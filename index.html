@@ -48,8 +48,8 @@
       --beta: #f59e0b;
       --glow-primary: rgba(200, 210, 255, 0.7);
       --glow-secondary: rgba(200, 210, 255, 0.25);
-      --gap: 6px;
-      --radius: 12px;
+      --gap: 2px;
+      --radius: 8px;
       --pad: 20px;
     }
     
@@ -100,7 +100,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 20px 32px;
-      background: rgba(10, 10, 10, 0.85);
+      background: rgba(10, 10, 10, 0.9);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border-subtle);
@@ -172,21 +172,22 @@
       padding: 32px;
     }
     
-    /* Grid */
+    /* Grid - Bento Box Style */
     .grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: var(--gap);
       perspective: 1200px;
       align-items: start;
+      background: var(--border-subtle);
+      border-radius: var(--radius);
+      overflow: hidden;
     }
     
     /* Cell Base */
     .cell {
       position: relative;
       background: var(--card);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius);
       aspect-ratio: 1;
       overflow: visible;
       transform-style: preserve-3d;
@@ -214,13 +215,12 @@
     .cell::before {
       content: '';
       position: absolute;
-      inset: -1px;
-      border-radius: inherit;
+      inset: 0;
       background: radial-gradient(
-        200px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        250px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
         var(--glow-primary) 0%,
-        var(--glow-secondary) 25%,
-        transparent 50%
+        var(--glow-secondary) 20%,
+        transparent 45%
       );
       mask: 
         linear-gradient(#fff 0 0) content-box,
@@ -230,11 +230,11 @@
         linear-gradient(#fff 0 0) content-box,
         linear-gradient(#fff 0 0);
       -webkit-mask-composite: xor;
-      padding: 1px;
+      padding: 2px;
       opacity: 0;
       transition: opacity 0.3s ease;
       pointer-events: none;
-      z-index: 1;
+      z-index: 10;
     }
     
     .cell:hover::before {
@@ -246,10 +246,9 @@
       content: '';
       position: absolute;
       inset: 0;
-      border-radius: inherit;
       background: radial-gradient(
         ellipse 120% 80% at var(--specular-x, 50%) var(--specular-y, 50%),
-        rgba(255, 255, 255, 0.04) 0%,
+        rgba(255, 255, 255, 0.03) 0%,
         transparent 50%
       );
       opacity: 0;
@@ -276,8 +275,8 @@
       top: var(--pad);
       left: var(--pad);
       padding: 5px 10px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
       border-radius: 6px;
       font-size: 10px;
       font-weight: 500;
@@ -286,6 +285,7 @@
       color: var(--text-dim);
       z-index: 2;
       transition: all 0.3s ease;
+      transform-origin: top left;
     }
     
     .cell:hover .cell-badge,
@@ -293,6 +293,8 @@
       color: var(--text-muted);
       background: rgba(255, 255, 255, 0.08);
       border-color: rgba(255, 255, 255, 0.12);
+      transform: scale(1.03);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     }
     
     /* Status - Top Right */
@@ -304,7 +306,7 @@
       align-items: center;
       gap: 0;
       padding: 5px 8px;
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.04);
       border-radius: 12px;
       font-size: 10px;
       font-weight: 500;
@@ -312,6 +314,12 @@
       letter-spacing: 0.05em;
       overflow: hidden;
       z-index: 2;
+      transition: all 0.3s ease;
+    }
+    
+    .cell:hover .cell-status,
+    .cell.revealed .cell-status {
+      background: rgba(255, 255, 255, 0.06);
     }
     
     .cell-status::before {
@@ -347,30 +355,23 @@
       margin-left: 6px;
     }
     
-    /* Text Wrapper - Bottom Left */
-    .cell-text-wrapper {
+    /* ============================================
+       CONTENT - Reveals from TOP (below badge)
+       ============================================ */
+    .cell-content-area {
       position: absolute;
-      bottom: var(--pad);
+      top: calc(var(--pad) + 34px);
       left: var(--pad);
-      right: calc(var(--pad) + 30px);
+      right: var(--pad);
       z-index: 2;
     }
     
-    .cell-title {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--text);
-      letter-spacing: -0.02em;
-      line-height: 1.2;
-    }
-    
     .cell-subtitle {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--text-dim);
-      line-height: 1.3;
-      margin-bottom: 4px;
+      line-height: 1.4;
       opacity: 0;
-      transform: translateY(6px);
+      transform: translateY(-8px);
       transition: all 0.3s ease;
     }
     
@@ -379,6 +380,69 @@
       opacity: 1;
       transform: translateY(0);
       color: var(--text-muted);
+    }
+    
+    /* Paragraph content for info cells */
+    .cell-paragraph {
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.5;
+      opacity: 0;
+      transform: translateY(-8px);
+      transition: all 0.3s ease;
+    }
+    
+    .cell:hover .cell-paragraph,
+    .cell.revealed .cell-paragraph {
+      opacity: 1;
+      transform: translateY(0);
+      color: var(--text-muted);
+    }
+    
+    /* Skills Tags */
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      opacity: 0;
+      transform: translateY(-8px);
+      transition: all 0.3s ease;
+    }
+    
+    .cell:hover .skill-tags,
+    .cell.revealed .skill-tags {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .skill-tag {
+      padding: 4px 8px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 4px;
+      font-size: 10px;
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+    }
+    
+    .skill-tag:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+    
+    /* ============================================
+       TITLE - Bottom Left (anchored, never moves)
+       ============================================ */
+    .cell-title {
+      position: absolute;
+      bottom: var(--pad);
+      left: var(--pad);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      z-index: 2;
     }
     
     /* Arrow - Bottom Right */
@@ -418,80 +482,6 @@
     }
     
     /* ============================================
-       INFO CELLS - About & Skills (inline reveal)
-       ============================================ */
-    .cell.info {
-      padding: var(--pad);
-    }
-    
-    .cell.info .cell-badge {
-      position: absolute;
-      top: var(--pad);
-      left: var(--pad);
-    }
-    
-    .cell.info .cell-title {
-      position: absolute;
-      bottom: var(--pad);
-      left: var(--pad);
-    }
-    
-    .cell.info .cell-content {
-      position: absolute;
-      top: calc(var(--pad) + 36px);
-      left: var(--pad);
-      right: var(--pad);
-      font-size: 13px;
-      color: var(--text-dim);
-      line-height: 1.5;
-      opacity: 0;
-      transform: translateY(6px);
-      transition: all 0.3s ease;
-    }
-    
-    .cell.info:hover .cell-content,
-    .cell.info.revealed .cell-content {
-      opacity: 1;
-      transform: translateY(0);
-      color: var(--text-muted);
-    }
-    
-    /* Skills Tags */
-    .skill-tags {
-      position: absolute;
-      top: calc(var(--pad) + 36px);
-      left: var(--pad);
-      right: var(--pad);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      opacity: 0;
-      transform: translateY(6px);
-      transition: all 0.3s ease;
-    }
-    
-    .cell.info:hover .skill-tags,
-    .cell.info.revealed .skill-tags {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
-    .skill-tag {
-      padding: 4px 8px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      font-size: 11px;
-      color: var(--text-muted);
-      transition: all 0.2s ease;
-    }
-    
-    .skill-tag:hover {
-      border-color: var(--text-dim);
-      transform: translateY(-1px);
-    }
-    
-    /* ============================================
        INTRO CELL
        ============================================ */
     .cell.intro {
@@ -509,11 +499,17 @@
       align-items: center;
       gap: 8px;
       padding: 6px 12px;
-      background: rgba(34, 197, 94, 0.1);
-      border: 1px solid rgba(34, 197, 94, 0.2);
+      background: rgba(34, 197, 94, 0.08);
+      border: 1px solid rgba(34, 197, 94, 0.15);
       border-radius: 20px;
       font-size: 11px;
       color: var(--live);
+      transition: all 0.3s ease;
+    }
+    
+    .cell.intro:hover .intro-status {
+      background: rgba(34, 197, 94, 0.12);
+      border-color: rgba(34, 197, 94, 0.25);
     }
     
     .intro-status::before {
@@ -538,16 +534,17 @@
     }
     
     .intro-headline {
-      font-size: clamp(20px, 3vw, 26px);
+      font-size: clamp(18px, 2.5vw, 24px);
       font-weight: 600;
       color: var(--text);
       letter-spacing: -0.03em;
-      line-height: 1.2;
+      line-height: 1.25;
       margin-bottom: 12px;
     }
     
     .intro-headline span {
       color: var(--text-muted);
+      font-weight: 400;
     }
     
     .intro-meta {
@@ -573,37 +570,26 @@
     }
     
     /* ============================================
-       SOCIAL CELLS
+       SOCIAL CELLS - Centered icon
        ============================================ */
-    .cell.social .cell-badge {
-      position: absolute;
-      top: var(--pad);
-      left: var(--pad);
-    }
-    
-    .cell.social .cell-title {
-      position: absolute;
-      bottom: var(--pad);
-      left: var(--pad);
-    }
-    
-    .cell.social .cell-icon {
+    .cell.social .social-icon {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 32px;
-      height: 32px;
+      width: 28px;
+      height: 28px;
       color: var(--text-dim);
-      opacity: 0.4;
+      opacity: 0.3;
       transition: all 0.3s ease;
       z-index: 2;
     }
     
-    .cell.social:hover .cell-icon,
-    .cell.social.revealed .cell-icon {
-      opacity: 0.7;
+    .cell.social:hover .social-icon,
+    .cell.social.revealed .social-icon {
+      opacity: 0.6;
       color: var(--text-muted);
+      transform: translate(-50%, -50%) scale(1.1);
     }
     
     /* Footer */
@@ -735,10 +721,10 @@
       <a href="projects/boostxp.html" class="cell clickable" id="work" style="animation-delay: 0.05s" aria-label="View BoostXP project">
         <span class="cell-badge">App</span>
         <div class="cell-status beta"><span>Beta</span></div>
-        <div class="cell-text-wrapper">
+        <div class="cell-content-area">
           <p class="cell-subtitle">Foresight fitness tracking app</p>
-          <h2 class="cell-title">BoostXP</h2>
         </div>
+        <h2 class="cell-title">BoostXP</h2>
         <svg class="cell-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M7 17L17 7M17 7H7M17 7V17"/>
         </svg>
@@ -748,10 +734,10 @@
       <a href="projects/mvr-portal.html" class="cell clickable" style="animation-delay: 0.1s" aria-label="View MVR Portal project">
         <span class="cell-badge">Tool</span>
         <div class="cell-status live"><span>Live</span></div>
-        <div class="cell-text-wrapper">
+        <div class="cell-content-area">
           <p class="cell-subtitle">Internal ops portal</p>
-          <h2 class="cell-title">MVR Portal</h2>
         </div>
+        <h2 class="cell-title">MVR Portal</h2>
         <svg class="cell-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M7 17L17 7M17 7H7M17 7V17"/>
         </svg>
@@ -760,10 +746,10 @@
       <a href="projects/f3-finance.html" class="cell clickable" style="animation-delay: 0.15s" aria-label="View F3 Finance project">
         <span class="cell-badge">Tool</span>
         <div class="cell-status live"><span>Live</span></div>
-        <div class="cell-text-wrapper">
+        <div class="cell-content-area">
           <p class="cell-subtitle">Real-time financial reporting tool</p>
-          <h2 class="cell-title">F3 Finance</h2>
         </div>
+        <h2 class="cell-title">F3 Finance</h2>
         <svg class="cell-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M7 17L17 7M17 7H7M17 7V17"/>
         </svg>
@@ -772,10 +758,10 @@
       <a href="projects/floral-frenchie.html" class="cell clickable" style="animation-delay: 0.2s" aria-label="View The Floral Frenchie project">
         <span class="cell-badge">Website</span>
         <div class="cell-status live"><span>Live</span></div>
-        <div class="cell-text-wrapper">
+        <div class="cell-content-area">
           <p class="cell-subtitle">Boutique florist e-commerce</p>
-          <h2 class="cell-title">The Floral Frenchie</h2>
         </div>
+        <h2 class="cell-title">The Floral Frenchie</h2>
         <svg class="cell-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M7 17L17 7M17 7H7M17 7V17"/>
         </svg>
@@ -785,34 +771,38 @@
       <a href="projects/mvr-projects.html" class="cell clickable" style="animation-delay: 0.25s" aria-label="View MVR Projects project">
         <span class="cell-badge">Website</span>
         <div class="cell-status live"><span>Live</span></div>
-        <div class="cell-text-wrapper">
+        <div class="cell-content-area">
           <p class="cell-subtitle">Security firm website</p>
-          <h2 class="cell-title">MVR Projects</h2>
         </div>
+        <h2 class="cell-title">MVR Projects</h2>
         <svg class="cell-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M7 17L17 7M17 7H7M17 7V17"/>
         </svg>
       </a>
       
-      <div class="cell info" id="about" style="animation-delay: 0.3s">
+      <div class="cell" id="about" style="animation-delay: 0.3s">
         <span class="cell-badge">Info</span>
-        <p class="cell-content">I transitioned from executing daily operations to engineering the logic behind them. I design and implement automated systems that replace manual repetitive tasks with reliable, efficient flows.</p>
+        <div class="cell-content-area">
+          <p class="cell-paragraph">I transitioned from executing daily operations to engineering the logic behind them. I design and implement automated systems that replace manual repetitive tasks with reliable, efficient flows.</p>
+        </div>
         <h2 class="cell-title">About</h2>
       </div>
       
-      <div class="cell info" style="animation-delay: 0.35s">
+      <div class="cell" style="animation-delay: 0.35s">
         <span class="cell-badge">Info</span>
-        <div class="skill-tags">
-          <span class="skill-tag">React</span>
-          <span class="skill-tag">Next.js</span>
-          <span class="skill-tag">TypeScript</span>
-          <span class="skill-tag">SwiftUI</span>
-          <span class="skill-tag">CSS</span>
-          <span class="skill-tag">Supabase</span>
-          <span class="skill-tag">GitHub</span>
-          <span class="skill-tag">VS Code</span>
-          <span class="skill-tag">Figma</span>
-          <span class="skill-tag">Notion</span>
+        <div class="cell-content-area">
+          <div class="skill-tags">
+            <span class="skill-tag">React</span>
+            <span class="skill-tag">Next.js</span>
+            <span class="skill-tag">TypeScript</span>
+            <span class="skill-tag">SwiftUI</span>
+            <span class="skill-tag">CSS</span>
+            <span class="skill-tag">Supabase</span>
+            <span class="skill-tag">GitHub</span>
+            <span class="skill-tag">VS Code</span>
+            <span class="skill-tag">Figma</span>
+            <span class="skill-tag">Notion</span>
+          </div>
         </div>
         <h2 class="cell-title">Skills</h2>
       </div>
@@ -820,10 +810,10 @@
       <!-- ROW 4: Resume + LinkedIn + GitHub -->
       <a href="resume.html" class="cell clickable" style="animation-delay: 0.4s" aria-label="View full resume">
         <span class="cell-badge">Document</span>
-        <div class="cell-text-wrapper">
+        <div class="cell-content-area">
           <p class="cell-subtitle">Full CV with print support</p>
-          <h2 class="cell-title">Resume</h2>
         </div>
+        <h2 class="cell-title">Resume</h2>
         <svg class="cell-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M7 17L17 7M17 7H7M17 7V17"/>
         </svg>
@@ -831,7 +821,7 @@
       
       <a href="https://linkedin.com/in/ruisimoes" target="_blank" rel="noopener noreferrer" class="cell clickable social" style="animation-delay: 0.45s" aria-label="LinkedIn profile">
         <span class="cell-badge">Social</span>
-        <svg class="cell-icon" viewBox="0 0 24 24" fill="currentColor">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
           <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
         </svg>
         <h2 class="cell-title">LinkedIn</h2>
@@ -842,7 +832,7 @@
       
       <a href="https://github.com/ruisimoes" target="_blank" rel="noopener noreferrer" class="cell clickable social" style="animation-delay: 0.5s" aria-label="GitHub profile">
         <span class="cell-badge">Social</span>
-        <svg class="cell-icon" viewBox="0 0 24 24" fill="currentColor">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
         </svg>
         <h2 class="cell-title">GitHub</h2>
@@ -918,9 +908,9 @@
         let animationId = null;
         
         const animate = () => {
-          currentRotateX = lerp(currentRotateX, targetRotateX, 0.15);
-          currentRotateY = lerp(currentRotateY, targetRotateY, 0.15);
-          currentLift = lerp(currentLift, targetLift, 0.15);
+          currentRotateX = lerp(currentRotateX, targetRotateX, 0.12);
+          currentRotateY = lerp(currentRotateY, targetRotateY, 0.12);
+          currentLift = lerp(currentLift, targetLift, 0.12);
           
           cell.style.transform = `
             perspective(1200px)
@@ -953,8 +943,8 @@
           const normalizedY = (y - centerY) / centerY;
           
           // Magnetic lift: cursor pulls the card up toward it
-          const maxRotation = 4;
-          const maxLift = 8;
+          const maxRotation = 3;
+          const maxLift = 6;
           
           // Invert Y for magnetic effect (cursor at top lifts top edge)
           targetRotateX = normalizedY * maxRotation * -1;
@@ -970,12 +960,11 @@
           cell.style.setProperty('--specular-y', `${percentY}%`);
           
           // Shadow opposite to lift
-          const shadowX = normalizedX * -15;
-          const shadowY = normalizedY * -15;
+          const shadowX = normalizedX * -12;
+          const shadowY = normalizedY * -12;
           cell.style.boxShadow = `
-            ${shadowX}px ${shadowY}px 30px rgba(0, 0, 0, 0.4),
-            0 10px 40px rgba(0, 0, 0, 0.2),
-            inset 0 0 0 1px rgba(255, 255, 255, 0.05)
+            ${shadowX}px ${shadowY}px 25px rgba(0, 0, 0, 0.5),
+            0 8px 32px rgba(0, 0, 0, 0.3)
           `;
           
           if (!animationId) {
